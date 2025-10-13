@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class WalletController {
 
     @PostMapping
-    public ResponseEntity<Object> createWallet() {
+    public ResponseEntity<Object> createWallet(@RequestBody Object request) {
         return null;
     }
 
