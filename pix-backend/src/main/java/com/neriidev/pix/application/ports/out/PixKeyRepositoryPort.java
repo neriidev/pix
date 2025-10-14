@@ -1,7 +1,5 @@
 package com.neriidev.pix.application.ports.out;
 
-
-
 import com.neriidev.pix.domain.model.PixKey;
 
 import java.util.Optional;

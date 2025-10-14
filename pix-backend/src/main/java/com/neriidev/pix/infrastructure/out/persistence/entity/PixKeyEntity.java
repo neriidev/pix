@@ -1,6 +1,7 @@
 package com.neriidev.pix.infrastructure.out.persistence.entity;
 
 
+import com.neriidev.pix.domain.model.Wallet;
 import com.neriidev.pix.infrastructure.out.persistence.enums.PixKeyType;
 import jakarta.persistence.*;
 

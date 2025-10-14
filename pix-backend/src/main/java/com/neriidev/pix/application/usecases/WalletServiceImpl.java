@@ -30,7 +30,6 @@ public class WalletServiceImpl implements WalletUseCase {
         WalletEntity wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new RuntimeException("Carteira não encontrada"));
 
-        // Simplified balance calculation
         BigDecimal balance = wallet.getBalance();
 
         return new BalanceResponse(balance, LocalDateTime.now());

@@ -1,10 +1,10 @@
 package com.neriidev.pix.application.usecases;
 
-import com.neriidev.pix.infrastructure.out.persistence.entity.PixKeyEntity;
-import com.neriidev.pix.infrastructure.out.persistence.entity.WalletEntity;
+import com.neriidev.pix.application.ports.out.PixKeyRepositoryPort;
+import com.neriidev.pix.application.ports.out.WalletRepositoryPort;
+import com.neriidev.pix.domain.model.PixKey;
+import com.neriidev.pix.domain.model.Wallet;
 import com.neriidev.pix.infrastructure.in.dtos.request.PixKeyRequest;
-import com.neriidev.pix.infrastructure.out.persistence.repository.PixKeyRepository;
-import com.neriidev.pix.infrastructure.out.persistence.repository.WalletRepository;
 import com.neriidev.pix.application.ports.in.PixKeyUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,21 +13,17 @@ import org.springframework.stereotype.Service;
 public class PixKeyServiceImpl implements PixKeyUseCase {
 
     @Autowired
-    private PixKeyRepository pixKeyRepository;
+    private PixKeyRepositoryPort pixKeyRepository;
 
     @Autowired
-    private WalletRepository walletRepository;
+    private WalletRepositoryPort walletRepository;
 
     @Override
-    public PixKeyEntity registerKey(Long walletId, PixKeyRequest pixKeyRequest) {
-        WalletEntity wallet = walletRepository.findById(walletId)
+    public PixKey registerKey(Long walletId, PixKeyRequest pixKeyRequest) {
+        Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new RuntimeException("Carteira não encontrada"));
 
-        PixKeyEntity pixKey = new PixKeyEntity();
-        pixKey.setKey(pixKeyRequest.key());
-        pixKey.setType(pixKeyRequest.type());
-        pixKey.setWallet(wallet);
-
+        PixKey pixKey = new PixKey(null, pixKeyRequest.key(), pixKeyRequest.type(), wallet);
         return pixKeyRepository.save(pixKey);
     }
 }

@@ -1,5 +1,9 @@
 package com.neriidev.pix.application.usecases;
 
+import com.neriidev.pix.application.ports.out.IdempotencyKeyRepositoryPort;
+import com.neriidev.pix.application.ports.out.PixKeyRepositoryPort;
+import com.neriidev.pix.application.ports.out.WalletRepositoryPort;
+import com.neriidev.pix.domain.model.PixKey;
 import com.neriidev.pix.infrastructure.out.persistence.entity.PixKeyEntity;
 import com.neriidev.pix.infrastructure.out.persistence.repository.IdempotencyKeyJpaRepository;
 import com.neriidev.pix.infrastructure.out.persistence.repository.PixKeyRepository;
@@ -14,13 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class PixServiceImpl implements PixUseCase {
 
     @Autowired
-    private PixKeyRepository pixKeyRepository;
+    private PixKeyRepositoryPort pixKeyRepository;
 
     @Autowired
-    private WalletRepository walletRepository;
+    private WalletRepositoryPort walletRepository;
 
     @Autowired
-    private IdempotencyKeyJpaRepository idempotencyKeyJpaRepository;
+    private IdempotencyKeyRepositoryPort idempotencyKeyJpaRepository;
 
     @Override
     @Transactional
@@ -29,10 +33,10 @@ public class PixServiceImpl implements PixUseCase {
             throw new RuntimeException("Chave de idempotência já utilizada");
         });
 
-        PixKeyEntity sourcePixKey = pixKeyRepository.findByKey(request.sourcePixKey())
+        PixKey sourcePixKey = pixKeyRepository.findByKey(request.sourcePixKey())
                 .orElseThrow(() -> new RuntimeException("Chave de origem do PIX não encontrada"));
 
-        PixKeyEntity targetPixKey = pixKeyRepository.findByKey(request.targetPixKey())
+        PixKey targetPixKey = pixKeyRepository.findByKey(request.targetPixKey())
                 .orElseThrow(() -> new RuntimeException("Chave de PIX de destino não encontrada"));
 
         var sourceWallet = sourcePixKey.getWallet();
