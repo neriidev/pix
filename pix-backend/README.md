@@ -1,93 +1,97 @@
 # Pix Backend
 
-This is the backend for the Pix project.
+Este é o backend para o projeto Pix.
 
-## Prerequisites
+## Pré-requisitos
 
 - Java 17
 - Maven
 - Docker
 - Docker Compose
 
-## Running the project locally
+## Executando o projeto localmente
 
-1.  **Clone the repository:**
+1.  **Clone o repositório:**
 
     ```bash
     git clone https://github.com/neriidev/pix-backend.git
     cd pix-backend
     ```
 
-2.  **Run the application:**
+2.  **Execute a aplicação:**
 
     ```bash
     mvn spring-boot:run
     ```
 
-The application will be available at `http://localhost:8080`.
+A aplicação estará disponível em `http://localhost:8080`.
 
-## Running the project with Docker Compose
+## Executando o projeto com Docker Compose
 
-1.  **Build the application:**
+1.  **Compile a aplicação:**
 
     ```bash
     mvn clean install
     ```
 
-2.  **Run with Docker Compose:**
+2.  **Execute com Docker Compose:**
 
-The application will be available at `http://localhost:8080`.
+    ```bash
+    docker-compose up -d
+    ```
 
-## API Endpoints
+A aplicação estará disponível em `http://localhost:8080`.
 
-### Wallets
+## Endpoints da API
 
-- **Create Wallet**
+### Carteiras (Wallets)
+
+- **Criar Carteira**
   - **POST** `/wallets`
-  - Creates a new wallet.
-  - **Request Body:** `WalletRequest`
-  - **Response Body:** `WalletResponse`
+  - Cria uma nova carteira.
+  - **Corpo da Requisição:** `WalletRequest`
+  - **Corpo da Resposta:** `WalletResponse`
 
-- **Register PIX Key**
+- **Registrar Chave PIX**
   - **POST** `/wallets/{id}/pix-keys`
-  - Registers a new PIX key for a wallet.
-  - **Request Body:** `PixKeyRequest`
-  - **Response Body:** `PixKeyResponse`
+  - Registra uma nova chave PIX para uma carteira.
+  - **Corpo da Requisição:** `PixKeyRequest`
+  - **Corpo da Resposta:** `PixKeyResponse`
 
-- **Get Balance**
+- **Obter Saldo**
   - **GET** `/wallets/{id}/balance`
-  - Gets the balance of a wallet.
-  - **Query Parameters:**
-    - `at` (optional, `LocalDateTime`): The date and time to get the balance at.
-  - **Response Body:** `BalanceResponse`
+  - Obtém o saldo de uma carteira.
+  - **Parâmetros de Consulta:**
+    - `at` (opcional, `LocalDateTime`): A data e hora para obter o saldo.
+  - **Corpo da Resposta:** `BalanceResponse`
 
-- **Deposit**
+- **Depósito**
   - **POST** `/wallets/{id}/deposit`
-  - Deposits an amount into a wallet.
-  - **Request Body:** `DepositRequest`
+  - Deposita um valor em uma carteira.
+  - **Corpo da Requisição:** `DepositRequest`
 
-- **Withdraw**
+- **Saque**
   - **POST** `/wallets/{id}/withdraw`
-  - Withdraws an amount from a wallet.
-  - **Request Body:** `AmountRequest`
+  - Saca um valor de uma carteira.
+  - **Corpo da Requisição:** `AmountRequest`
 
 ### PIX
 
-- **Internal Transfer**
+- **Transferência Interna**
   - **POST** `/pix/transfers`
-  - Performs an internal transfer between two PIX keys.
-  - **Request Header:** `Idempotency-Key`
-  - **Request Body:** `InternalTransferRequest`
-  - **Response Body:** `InternalTransferResponse`
+  - Realiza uma transferência interna entre duas chaves PIX.
+  - **Cabeçalho da Requisição:** `Idempotency-Key`
+  - **Corpo da Requisição:** `InternalTransferRequest`
+  - **Corpo da Resposta:** `InternalTransferResponse`
 
 - **Webhook**
   - **POST** `/pix/webhook`
-  - Receives a webhook notification.
-  - **Request Body:** `WebhookRequest`
+  - Recebe uma notificação de webhook.
+  - **Corpo da Requisição:** `WebhookRequest`
 
-## Objects
+## Objetos
 
-### Request Objects
+### Objetos de Requisição
 
 - `WalletRequest`
   ```json
@@ -137,7 +141,7 @@ The application will be available at `http://localhost:8080`.
   }
   ```
 
-### Response Objects
+### Objetos de Resposta
 
 - `WalletResponse`
   ```json
@@ -175,17 +179,17 @@ The application will be available at `http://localhost:8080`.
   }
   ```
 
-## Running the tests locally
+## Executando os testes localmente
 
 ```bash
 mvn test
 ```
 
-## Running the tests with Docker Compose
+## Executando os testes com Docker Compose
 
-It is not recommended to run the tests with Docker Compose, as the test environment is configured to use an in-memory H2 database. However, if you want to run the tests against a PostgreSQL database, you can do the following:
+Não é recomendado executar os testes com o Docker Compose, pois o ambiente de teste é configurado para usar um banco de dados H2 em memória. No entanto, se você deseja executar os testes em um banco de dados PostgreSQL, pode fazer o seguinte:
 
-1.  **Comment out the H2 dependency in `pom.xml`:**
+1.  **Comente a dependência H2 no `pom.xml`:**
 
     ```xml
     <!--
@@ -197,7 +201,7 @@ It is not recommended to run the tests with Docker Compose, as the test environm
     -->
     ```
 
-2.  **Run the tests with Docker Compose:**
+2.  **Execute os testes com o Docker Compose:**
 
     ```bash
     docker-compose run --rm app mvn test
