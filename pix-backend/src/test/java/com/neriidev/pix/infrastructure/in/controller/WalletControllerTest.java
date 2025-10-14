@@ -1,8 +1,8 @@
 package com.neriidev.pix.infrastructure.in.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.neriidev.pix.domain.model.PixKeyEntity;
-import com.neriidev.pix.domain.model.WalletEntity;
+import com.neriidev.pix.infrastructure.out.persistence.entity.PixKeyEntity;
+import com.neriidev.pix.infrastructure.out.persistence.entity.WalletEntity;
 import com.neriidev.pix.domain.service.PixKeyService;
 import com.neriidev.pix.domain.service.WalletService;
 import com.neriidev.pix.infrastructure.in.dtos.request.PixKeyRequest;

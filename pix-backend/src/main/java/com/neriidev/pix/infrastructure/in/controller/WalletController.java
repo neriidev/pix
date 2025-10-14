@@ -2,6 +2,7 @@ package com.neriidev.pix.infrastructure.in.controller;
 
 import com.neriidev.pix.domain.service.PixKeyService;
 import com.neriidev.pix.domain.service.WalletService;
+import com.neriidev.pix.infrastructure.in.dtos.request.DepositRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.PixKeyRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.TransferRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.WalletRequest;
@@ -35,6 +36,12 @@ public class WalletController {
     @GetMapping("/{id}/balance")
     public ResponseEntity<Object> getBalance(@PathVariable Long id, @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime at) {
         return ResponseEntity.ok(walletService.getBalance(id, at));
+    }
+
+    @PostMapping("/{id}/deposit")
+    public ResponseEntity<Void> deposit(@PathVariable Long id, @RequestBody DepositRequest request) {
+      //  depositUseCase.deposit(id, request.getAmount());
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{id}/withdraw")

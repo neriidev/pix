@@ -1,10 +1,10 @@
 package com.neriidev.pix.domain.service.impl;
 
-import com.neriidev.pix.domain.model.PixKeyEntity;
-import com.neriidev.pix.domain.model.WalletEntity;
+import com.neriidev.pix.infrastructure.out.persistence.entity.PixKeyEntity;
+import com.neriidev.pix.infrastructure.out.persistence.entity.WalletEntity;
 import com.neriidev.pix.infrastructure.in.dtos.request.PixKeyRequest;
-import com.neriidev.pix.infrastructure.out.repository.PixKeyRepository;
-import com.neriidev.pix.infrastructure.out.repository.WalletRepository;
+import com.neriidev.pix.infrastructure.out.persistence.repository.PixKeyRepository;
+import com.neriidev.pix.infrastructure.out.persistence.repository.WalletRepository;
 import com.neriidev.pix.domain.service.PixKeyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

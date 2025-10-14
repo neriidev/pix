@@ -1,4 +1,4 @@
-package com.neriidev.pix.domain.model;
+package com.neriidev.pix.infrastructure.out.persistence.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

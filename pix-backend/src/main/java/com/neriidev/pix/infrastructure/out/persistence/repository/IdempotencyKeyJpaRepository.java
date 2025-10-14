@@ -1,7 +1,7 @@
-package com.neriidev.pix.infrastructure.out.repository;
+package com.neriidev.pix.infrastructure.out.persistence.repository;
 
 
-import com.neriidev.pix.domain.model.IdempotencyKeyEntity;
+import com.neriidev.pix.infrastructure.out.persistence.entity.IdempotencyKeyEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

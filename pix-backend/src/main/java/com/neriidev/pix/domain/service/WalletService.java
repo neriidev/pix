@@ -1,6 +1,6 @@
 package com.neriidev.pix.domain.service;
 
-import com.neriidev.pix.domain.model.WalletEntity;
+import com.neriidev.pix.infrastructure.out.persistence.entity.WalletEntity;
 import com.neriidev.pix.infrastructure.in.dtos.response.BalanceResponse;
 import com.neriidev.pix.infrastructure.in.dtos.request.TransferRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.WalletRequest;
