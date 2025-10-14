@@ -1,7 +1,7 @@
 package com.neriidev.pix.domain.service.impl;
 
-import com.neriidev.pix.domain.model.PixKey;
-import com.neriidev.pix.domain.model.Wallet;
+import com.neriidev.pix.domain.model.PixKeyEntity;
+import com.neriidev.pix.domain.model.WalletEntity;
 import com.neriidev.pix.infrastructure.in.dtos.request.PixKeyRequest;
 import com.neriidev.pix.infrastructure.out.repository.PixKeyRepository;
 import com.neriidev.pix.infrastructure.out.repository.WalletRepository;
@@ -19,11 +19,11 @@ public class PixKeyServiceImpl implements PixKeyService {
     private WalletRepository walletRepository;
 
     @Override
-    public PixKey registerKey(Long walletId, PixKeyRequest pixKeyRequest) {
-        Wallet wallet = walletRepository.findById(walletId)
-                .orElseThrow(() -> new RuntimeException("Wallet not found"));
+    public PixKeyEntity registerKey(Long walletId, PixKeyRequest pixKeyRequest) {
+        WalletEntity wallet = walletRepository.findById(walletId)
+                .orElseThrow(() -> new RuntimeException("Carteira não encontrada"));
 
-        PixKey pixKey = new PixKey();
+        PixKeyEntity pixKey = new PixKeyEntity();
         pixKey.setKey(pixKeyRequest.key());
         pixKey.setType(pixKeyRequest.type());
         pixKey.setWallet(wallet);

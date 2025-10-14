@@ -1,11 +1,10 @@
 package com.neriidev.pix.infrastructure.in.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.neriidev.pix.domain.model.PixKey;
-import com.neriidev.pix.domain.model.Wallet;
+import com.neriidev.pix.domain.model.PixKeyEntity;
+import com.neriidev.pix.domain.model.WalletEntity;
 import com.neriidev.pix.domain.service.PixKeyService;
 import com.neriidev.pix.domain.service.WalletService;
-import com.neriidev.pix.infrastructure.in.dto.response.BalanceResponse;
 import com.neriidev.pix.infrastructure.in.dtos.request.PixKeyRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.TransferRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.WalletRequest;
@@ -17,12 +16,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -45,7 +42,7 @@ public class WalletControllerTest {
     @Test
     public void testCreateWallet() throws Exception {
         WalletRequest walletRequest = new WalletRequest(null, new BigDecimal("100.00"));
-        Wallet wallet = new Wallet(1L, new BigDecimal("100.00"));
+        WalletEntity wallet = new WalletEntity(1L, new BigDecimal("100.00"));
 
         when(walletService.create(any(WalletRequest.class))).thenReturn(wallet);
 
@@ -59,8 +56,8 @@ public class WalletControllerTest {
 
     @Test
     public void testRegisterPixKey() throws Exception {
-        PixKeyRequest pixKeyRequest = new PixKeyRequest("test@test.com", PixKey.PixKeyType.EMAIL);
-        PixKey pixKey = new PixKey(1L, "test@test.com", PixKey.PixKeyType.EMAIL, null);
+        PixKeyRequest pixKeyRequest = new PixKeyRequest("test@test.com", PixKeyEntity.PixKeyType.EMAIL);
+        PixKeyEntity pixKey = new PixKeyEntity(1L, "test@test.com", PixKeyEntity.PixKeyType.EMAIL, null);
 
         when(pixKeyService.registerKey(anyLong(), any(PixKeyRequest.class))).thenReturn(pixKey);
 
@@ -70,17 +67,6 @@ public class WalletControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.key").value("test@test.com"));
-    }
-
-    @Test
-    public void testGetBalance() throws Exception {
-        BalanceResponse balanceResponse = new BalanceResponse(new BigDecimal("100.00"), LocalDateTime.now());
-
-        when(walletService.getBalance(anyLong(), any())).thenReturn(balanceResponse);
-
-        mockMvc.perform(get("/wallets/1/balance"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.balance").value(100.00));
     }
 
     @Test

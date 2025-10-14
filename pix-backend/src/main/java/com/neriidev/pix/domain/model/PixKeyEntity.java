@@ -3,7 +3,7 @@ package com.neriidev.pix.domain.model;
 import jakarta.persistence.*;
 
 @Entity
-public class PixKey {
+public class PixKeyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +17,7 @@ public class PixKey {
 
     @ManyToOne
     @JoinColumn(name = "wallet_id")
-    private Wallet wallet;
+    private WalletEntity wallet;
 
     public enum PixKeyType {
         EMAIL,
@@ -25,10 +25,10 @@ public class PixKey {
         EVP
     }
 
-    public PixKey() {
+    public PixKeyEntity() {
     }
 
-    public PixKey(Long id, String key, PixKeyType type, Wallet wallet) {
+    public PixKeyEntity(Long id, String key, PixKeyType type, WalletEntity wallet) {
         this.id = id;
         this.key = key;
         this.type = type;
@@ -47,7 +47,7 @@ public class PixKey {
         return type;
     }
 
-    public Wallet getWallet() {
+    public WalletEntity getWallet() {
         return wallet;
     }
 
@@ -63,7 +63,7 @@ public class PixKey {
         this.type = type;
     }
 
-    public void setWallet(Wallet wallet) {
+    public void setWallet(WalletEntity wallet) {
         this.wallet = wallet;
     }
 }

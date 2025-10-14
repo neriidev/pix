@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import java.math.BigDecimal;
 
 @Entity
-public class Wallet {
+public class WalletEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,10 +15,10 @@ public class Wallet {
 
     private BigDecimal balance;
 
-    public Wallet() {
+    public WalletEntity() {
     }
 
-    public Wallet(Long id, BigDecimal balance) {
+    public WalletEntity(Long id, BigDecimal balance) {
         this.id = id;
         this.balance = balance;
     }

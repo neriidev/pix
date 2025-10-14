@@ -1,6 +1,6 @@
 package com.neriidev.pix.domain.service.impl;
 
-import com.neriidev.pix.domain.model.Wallet;
+import com.neriidev.pix.domain.model.WalletEntity;
 import com.neriidev.pix.infrastructure.in.dtos.request.TransferRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.WalletRequest;
 import com.neriidev.pix.infrastructure.out.repository.WalletRepository;
@@ -19,16 +19,16 @@ public class WalletServiceImpl implements WalletService {
     private WalletRepository walletRepository;
 
     @Override
-    public Wallet create(WalletRequest walletRequest) {
-        Wallet wallet = new Wallet();
+    public WalletEntity create(WalletRequest walletRequest) {
+        WalletEntity wallet = new WalletEntity();
         wallet.setBalance(walletRequest.balance());
         return walletRepository.save(wallet);
     }
 
     @Override
     public BalanceResponse getBalance(Long walletId, LocalDateTime at) {
-        Wallet wallet = walletRepository.findById(walletId)
-                .orElseThrow(() -> new RuntimeException("Wallet not found"));
+        WalletEntity wallet = walletRepository.findById(walletId)
+                .orElseThrow(() -> new RuntimeException("Carteira não encontrada"));
 
         // Simplified balance calculation
         BigDecimal balance = wallet.getBalance();
@@ -38,8 +38,8 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public void withdraw(Long walletId, TransferRequest.AmountRequest request) {
-        Wallet wallet = walletRepository.findById(walletId)
-                .orElseThrow(() -> new RuntimeException("Wallet not found"));
+        WalletEntity wallet = walletRepository.findById(walletId)
+                .orElseThrow(() -> new RuntimeException("Carteira não encontrada"));
 
         wallet.withdraw(request.amount());
 

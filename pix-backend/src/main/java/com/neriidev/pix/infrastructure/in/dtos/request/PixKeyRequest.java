@@ -1,5 +1,5 @@
 package com.neriidev.pix.infrastructure.in.dtos.request;
 
-import com.neriidev.pix.domain.model.PixKey;
+import com.neriidev.pix.domain.model.PixKeyEntity;
 
-public record PixKeyRequest(String key, PixKey.PixKeyType type) {}
+public record PixKeyRequest(String key, PixKeyEntity.PixKeyType type) {}
