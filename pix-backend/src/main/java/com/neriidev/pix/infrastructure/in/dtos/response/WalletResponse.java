@@ -1,4 +1,4 @@
-package com.neriidev.pix.infrastructure.in.dto.response;
+package com.neriidev.pix.infrastructure.in.dtos.response;
 
 import java.math.BigDecimal;
 

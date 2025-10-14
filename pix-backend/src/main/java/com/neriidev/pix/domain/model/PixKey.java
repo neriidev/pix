@@ -1,16 +1,22 @@
 package com.neriidev.pix.domain.model;
 
+import jakarta.persistence.*;
+
+@Entity
 public class PixKey {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "pix_key")
     private String key;
 
-
+    @Enumerated(EnumType.STRING)
     private PixKeyType type;
 
-
+    @ManyToOne
+    @JoinColumn(name = "wallet_id")
     private Wallet wallet;
 
     public enum PixKeyType {

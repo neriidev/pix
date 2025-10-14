@@ -1,4 +1,4 @@
-package com.neriidev.pix.infrastructure.in.dto.request;
+package com.neriidev.pix.infrastructure.in.dtos.request;
 
 import com.neriidev.pix.domain.model.PixKey;
 
