@@ -1,6 +1,5 @@
 package com.neriidev.pix.infrastructure.in.dto.request;
 
-public class PixKeyRequest {
-    private String key;
-    private PixKey.PixKeyType type;
-}
+import com.neriidev.pix.domain.model.PixKey;
+
+public record PixKeyRequest(String key, PixKey.PixKeyType type) {}
