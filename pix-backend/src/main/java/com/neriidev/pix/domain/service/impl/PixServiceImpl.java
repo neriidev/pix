@@ -4,7 +4,7 @@ import com.neriidev.pix.domain.model.PixKey;
 import com.neriidev.pix.infrastructure.out.repository.PixKeyRepository;
 import com.neriidev.pix.infrastructure.out.repository.WalletRepository;
 import com.neriidev.pix.domain.service.PixService;
-import com.neriidev.pix.infrastructure.in.dto.request.TransferRequest;
+import com.neriidev.pix.infrastructure.in.dtos.request.TransferRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,11 +1,11 @@
 package com.neriidev.pix.domain.service.impl;
 
 import com.neriidev.pix.domain.model.Wallet;
+import com.neriidev.pix.infrastructure.in.dtos.request.TransferRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.WalletRequest;
 import com.neriidev.pix.infrastructure.out.repository.WalletRepository;
 import com.neriidev.pix.domain.service.WalletService;
-import com.neriidev.pix.infrastructure.in.dto.request.AmountRequest;
-import com.neriidev.pix.infrastructure.in.dto.response.BalanceResponse;
+import com.neriidev.pix.infrastructure.in.dtos.response.BalanceResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +37,7 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    public void withdraw(Long walletId, AmountRequest request) {
+    public void withdraw(Long walletId, TransferRequest.AmountRequest request) {
         Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new RuntimeException("Wallet not found"));
 

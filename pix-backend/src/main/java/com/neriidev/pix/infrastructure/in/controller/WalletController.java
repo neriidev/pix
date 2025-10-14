@@ -2,8 +2,8 @@ package com.neriidev.pix.infrastructure.in.controller;
 
 import com.neriidev.pix.domain.service.PixKeyService;
 import com.neriidev.pix.domain.service.WalletService;
-import com.neriidev.pix.infrastructure.in.dto.request.AmountRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.PixKeyRequest;
+import com.neriidev.pix.infrastructure.in.dtos.request.TransferRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.WalletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,7 +38,7 @@ public class WalletController {
     }
 
     @PostMapping("/{id}/withdraw")
-    public ResponseEntity<Void> withdraw(@PathVariable Long id, @RequestBody AmountRequest request) {
+    public ResponseEntity<Void> withdraw(@PathVariable Long id, @RequestBody TransferRequest.AmountRequest request) {
         walletService.withdraw(id, request);
         return ResponseEntity.ok().build();
     }

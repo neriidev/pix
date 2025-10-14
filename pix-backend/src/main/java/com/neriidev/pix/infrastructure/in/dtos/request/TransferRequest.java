@@ -6,4 +6,6 @@ public record TransferRequest(
     String sourcePixKey,
     String targetPixKey,
     BigDecimal amount
-) {}
+) {
+    public static record AmountRequest(BigDecimal amount) {}
+}

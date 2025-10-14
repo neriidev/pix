@@ -5,9 +5,9 @@ import com.neriidev.pix.domain.model.PixKey;
 import com.neriidev.pix.domain.model.Wallet;
 import com.neriidev.pix.domain.service.PixKeyService;
 import com.neriidev.pix.domain.service.WalletService;
-import com.neriidev.pix.infrastructure.in.dto.request.AmountRequest;
 import com.neriidev.pix.infrastructure.in.dto.response.BalanceResponse;
 import com.neriidev.pix.infrastructure.in.dtos.request.PixKeyRequest;
+import com.neriidev.pix.infrastructure.in.dtos.request.TransferRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.WalletRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +85,7 @@ public class WalletControllerTest {
 
     @Test
     public void testWithdraw() throws Exception {
-        AmountRequest amountRequest = new AmountRequest(new BigDecimal("50.00"));
+        TransferRequest.AmountRequest amountRequest = new TransferRequest.AmountRequest(new BigDecimal("50.00"));
 
         mockMvc.perform(post("/wallets/1/withdraw")
                 .contentType(MediaType.APPLICATION_JSON)

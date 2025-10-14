@@ -1,7 +1,7 @@
 package com.neriidev.pix.infrastructure.in.controller;
 
 import com.neriidev.pix.domain.service.PixService;
-import com.neriidev.pix.infrastructure.in.dto.request.TransferRequest;
+import com.neriidev.pix.infrastructure.in.dtos.request.TransferRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
