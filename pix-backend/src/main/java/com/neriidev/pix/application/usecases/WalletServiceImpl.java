@@ -39,9 +39,7 @@ public class WalletServiceImpl implements WalletUseCase {
     public void withdraw(Long walletId, TransferRequest.AmountRequest request) {
         WalletEntity wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new RuntimeException("Carteira não encontrada"));
-
         wallet.withdraw(request.amount());
-
         walletRepository.save(wallet);
     }
 }
