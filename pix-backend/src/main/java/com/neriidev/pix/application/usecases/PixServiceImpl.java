@@ -1,17 +1,17 @@
-package com.neriidev.pix.domain.service.impl;
+package com.neriidev.pix.application.usecases;
 
 import com.neriidev.pix.infrastructure.out.persistence.entity.PixKeyEntity;
 import com.neriidev.pix.infrastructure.out.persistence.repository.IdempotencyKeyJpaRepository;
 import com.neriidev.pix.infrastructure.out.persistence.repository.PixKeyRepository;
 import com.neriidev.pix.infrastructure.out.persistence.repository.WalletRepository;
-import com.neriidev.pix.domain.service.PixService;
+import com.neriidev.pix.application.ports.in.PixUseCase;
 import com.neriidev.pix.infrastructure.in.dtos.request.TransferRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class PixServiceImpl implements PixService {
+public class PixServiceImpl implements PixUseCase {
 
     @Autowired
     private PixKeyRepository pixKeyRepository;

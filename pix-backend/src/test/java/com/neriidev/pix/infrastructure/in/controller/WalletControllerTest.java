@@ -3,11 +3,12 @@ package com.neriidev.pix.infrastructure.in.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.neriidev.pix.infrastructure.out.persistence.entity.PixKeyEntity;
 import com.neriidev.pix.infrastructure.out.persistence.entity.WalletEntity;
-import com.neriidev.pix.domain.service.PixKeyService;
-import com.neriidev.pix.domain.service.WalletService;
+import com.neriidev.pix.application.ports.in.PixKeyUseCase;
+import com.neriidev.pix.application.ports.in.WalletUseCase;
 import com.neriidev.pix.infrastructure.in.dtos.request.PixKeyRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.TransferRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.WalletRequest;
+import com.neriidev.pix.infrastructure.out.persistence.enums.PixKeyType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -34,10 +35,10 @@ public class WalletControllerTest {
     private ObjectMapper objectMapper;
 
     @MockBean
-    private WalletService walletService;
+    private WalletUseCase walletService;
 
     @MockBean
-    private PixKeyService pixKeyService;
+    private PixKeyUseCase pixKeyService;
 
     @Test
     public void testCreateWallet() throws Exception {
@@ -56,8 +57,8 @@ public class WalletControllerTest {
 
     @Test
     public void testRegisterPixKey() throws Exception {
-        PixKeyRequest pixKeyRequest = new PixKeyRequest("test@test.com", PixKeyEntity.PixKeyType.EMAIL);
-        PixKeyEntity pixKey = new PixKeyEntity(1L, "test@test.com", PixKeyEntity.PixKeyType.EMAIL, null);
+        PixKeyRequest pixKeyRequest = new PixKeyRequest("test@test.com", PixKeyType.EMAIL);
+        PixKeyEntity pixKey = new PixKeyEntity(1L, "test@test.com", PixKeyType.EMAIL, null);
 
         when(pixKeyService.registerKey(anyLong(), any(PixKeyRequest.class))).thenReturn(pixKey);
 

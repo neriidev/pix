@@ -1,5 +1,7 @@
 package com.neriidev.pix.domain.model;
 
+import com.neriidev.pix.domain.enums.LedgerEntryType;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -16,11 +18,6 @@ public class Ledger {
     private String transactionId;
 
     private LocalDateTime createdAt;
-
-    public enum LedgerEntryType {
-        CREDIT,
-        DEBIT
-    }
 
     public Ledger(Long id, Wallet wallet, BigDecimal amount, LedgerEntryType type, String transactionId, LocalDateTime createdAt) {
         this.id = id;

@@ -1,7 +1,7 @@
 package com.neriidev.pix.infrastructure.in.controller;
 
-import com.neriidev.pix.domain.service.PixKeyService;
-import com.neriidev.pix.domain.service.WalletService;
+import com.neriidev.pix.application.ports.in.PixKeyUseCase;
+import com.neriidev.pix.application.ports.in.WalletUseCase;
 import com.neriidev.pix.infrastructure.in.dtos.request.DepositRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.PixKeyRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.TransferRequest;
@@ -18,10 +18,10 @@ import java.time.LocalDateTime;
 public class WalletController {
 
     @Autowired
-    private WalletService walletService;
+    private WalletUseCase walletService;
 
     @Autowired
-    private PixKeyService pixKeyService;
+    private PixKeyUseCase pixKeyService;
 
     @PostMapping
     public ResponseEntity<Object> createWallet(@RequestBody WalletRequest request) {

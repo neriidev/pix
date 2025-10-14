@@ -1,5 +1,7 @@
 package com.neriidev.pix.infrastructure.out.persistence.entity;
 
+
+import com.neriidev.pix.infrastructure.out.persistence.enums.PixKeyType;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,17 +15,12 @@ public class PixKeyEntity {
     private String key;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private PixKeyType type;
 
     @ManyToOne
     @JoinColumn(name = "wallet_id")
     private WalletEntity wallet;
-
-    public enum PixKeyType {
-        EMAIL,
-        PHONE,
-        EVP
-    }
 
     public PixKeyEntity() {
     }

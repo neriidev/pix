@@ -1,7 +1,7 @@
 package com.neriidev.pix.infrastructure.in.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.neriidev.pix.domain.service.PixService;
+import com.neriidev.pix.application.ports.in.PixUseCase;
 import com.neriidev.pix.infrastructure.in.dtos.request.TransferRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class PixControllerTest {
     private ObjectMapper objectMapper;
 
     @MockBean
-    private PixService pixService;
+    private PixUseCase pixService;
 
     @Test
     public void testInternalTransfer() throws Exception {

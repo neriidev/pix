@@ -35,6 +35,10 @@ public class WalletEntity {
         this.balance = balance;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void deposit(BigDecimal amount) {
         this.balance = this.balance.add(amount);
     }

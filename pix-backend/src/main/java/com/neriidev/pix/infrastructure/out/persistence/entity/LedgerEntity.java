@@ -1,6 +1,7 @@
 package com.neriidev.pix.infrastructure.out.persistence.entity;
 
 
+import com.neriidev.pix.domain.enums.LedgerEntryType;
 import com.neriidev.pix.domain.model.Ledger;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -22,7 +23,7 @@ public class LedgerEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Ledger.LedgerEntryType type;
+    private LedgerEntryType type;
 
     private String transactionId;
 
