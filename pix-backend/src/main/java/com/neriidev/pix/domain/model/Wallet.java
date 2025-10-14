@@ -8,6 +8,9 @@ public class Wallet {
 
     private BigDecimal balance;
 
+    public Wallet() {
+    }
+
     public Wallet(Long id, BigDecimal balance) {
         this.id = id;
         this.balance = balance;
@@ -19,6 +22,10 @@ public class Wallet {
 
     public BigDecimal getBalance() {
         return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
     public void deposit(BigDecimal amount) {

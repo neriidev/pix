@@ -2,4 +2,8 @@ package com.neriidev.pix.infrastructure.in.dto.request;
 
 import java.math.BigDecimal;
 
-public record TransferRequest(String fromPixKey, String toPixKey, BigDecimal amount) {}
+public record TransferRequest(
+    String sourcePixKey,
+    String targetPixKey,
+    BigDecimal amount
+) {}

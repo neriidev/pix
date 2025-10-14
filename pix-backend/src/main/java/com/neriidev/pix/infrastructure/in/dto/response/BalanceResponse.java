@@ -1,5 +1,6 @@
 package com.neriidev.pix.infrastructure.in.dto.response;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
-public record BalanceResponse(BigDecimal balance) {}
+public record BalanceResponse(BigDecimal balance, LocalDateTime retrievedAt) {}
