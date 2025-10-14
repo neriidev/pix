@@ -1,22 +1,23 @@
 package com.neriidev.pix.application.usecases;
 
+import com.neriidev.pix.application.ports.in.PixKeyUseCase;
 import com.neriidev.pix.application.ports.out.PixKeyRepositoryPort;
 import com.neriidev.pix.application.ports.out.WalletRepositoryPort;
 import com.neriidev.pix.domain.model.PixKey;
 import com.neriidev.pix.domain.model.Wallet;
 import com.neriidev.pix.infrastructure.in.dtos.request.PixKeyRequest;
-import com.neriidev.pix.application.ports.in.PixKeyUseCase;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PixKeyServiceImpl implements PixKeyUseCase {
 
-    @Autowired
-    private PixKeyRepositoryPort pixKeyRepository;
+    private final PixKeyRepositoryPort pixKeyRepository;
+    private final WalletRepositoryPort walletRepository;
 
-    @Autowired
-    private WalletRepositoryPort walletRepository;
+    public PixKeyServiceImpl(PixKeyRepositoryPort pixKeyRepository, WalletRepositoryPort walletRepository) {
+        this.pixKeyRepository = pixKeyRepository;
+        this.walletRepository = walletRepository;
+    }
 
     @Override
     public PixKey registerKey(Long walletId, PixKeyRequest pixKeyRequest) {

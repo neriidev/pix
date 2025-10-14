@@ -1,10 +1,11 @@
 package com.neriidev.pix.infrastructure.in.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.neriidev.pix.application.ports.in.*;
+import com.neriidev.pix.domain.model.PixKey;
 import com.neriidev.pix.infrastructure.out.persistence.entity.PixKeyEntity;
 import com.neriidev.pix.infrastructure.out.persistence.entity.WalletEntity;
-import com.neriidev.pix.application.ports.in.PixKeyUseCase;
-import com.neriidev.pix.application.ports.in.WalletUseCase;
+import com.neriidev.pix.infrastructure.in.dtos.request.DepositRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.PixKeyRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.TransferRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.WalletRequest;
@@ -17,10 +18,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -40,6 +43,15 @@ public class WalletControllerTest {
     @MockBean
     private PixKeyUseCase pixKeyService;
 
+    @MockBean
+    private DepositUseCase depositUseCase;
+
+    @MockBean
+    private BalanceUseCase balanceUseCase;
+
+    @MockBean
+    private BalanceHistoryUseCase balanceHistoryUseCase;
+
     @Test
     public void testCreateWallet() throws Exception {
         WalletRequest walletRequest = new WalletRequest(null, new BigDecimal("100.00"));
@@ -58,7 +70,7 @@ public class WalletControllerTest {
     @Test
     public void testRegisterPixKey() throws Exception {
         PixKeyRequest pixKeyRequest = new PixKeyRequest("test@test.com", PixKeyType.EMAIL);
-        PixKeyEntity pixKey = new PixKeyEntity(1L, "test@test.com", PixKeyType.EMAIL, null);
+        PixKey pixKey = new PixKey(1L, "test@test.com", PixKeyType.EMAIL, null);
 
         when(pixKeyService.registerKey(anyLong(), any(PixKeyRequest.class))).thenReturn(pixKey);
 
@@ -71,6 +83,35 @@ public class WalletControllerTest {
     }
 
     @Test
+    public void testGetBalance() throws Exception {
+        when(balanceUseCase.getBalance(1L)).thenReturn(new BigDecimal("100.00"));
+
+        mockMvc.perform(get("/wallets/1/balance"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.balance").value(100.00));
+    }
+
+    @Test
+    public void testGetBalanceAt() throws Exception {
+        LocalDateTime at = LocalDateTime.now();
+        when(balanceHistoryUseCase.getBalanceAt(1L, at)).thenReturn(new BigDecimal("50.00"));
+
+        mockMvc.perform(get("/wallets/1/balance").param("at", at.toString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.balance").value(50.00));
+    }
+
+    @Test
+    public void testDeposit() throws Exception {
+        DepositRequest depositRequest = new DepositRequest(new BigDecimal("50.00"));
+
+        mockMvc.perform(post("/wallets/1/deposit")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(depositRequest)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     public void testWithdraw() throws Exception {
         TransferRequest.AmountRequest amountRequest = new TransferRequest.AmountRequest(new BigDecimal("50.00"));
 
@@ -80,3 +121,4 @@ public class WalletControllerTest {
                 .andExpect(status().isOk());
     }
 }
+

@@ -1,12 +1,11 @@
 package com.neriidev.pix.application.usecases;
 
-import com.neriidev.pix.infrastructure.out.persistence.entity.WalletEntity;
+import com.neriidev.pix.application.ports.in.WalletUseCase;
 import com.neriidev.pix.infrastructure.in.dtos.request.TransferRequest;
 import com.neriidev.pix.infrastructure.in.dtos.request.WalletRequest;
-import com.neriidev.pix.infrastructure.out.persistence.repository.WalletRepository;
-import com.neriidev.pix.application.ports.in.WalletUseCase;
 import com.neriidev.pix.infrastructure.in.dtos.response.BalanceResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.neriidev.pix.infrastructure.out.persistence.entity.WalletEntity;
+import com.neriidev.pix.infrastructure.out.persistence.repository.WalletRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -15,8 +14,11 @@ import java.time.LocalDateTime;
 @Service
 public class WalletServiceImpl implements WalletUseCase {
 
-    @Autowired
-    private WalletRepository walletRepository;
+    private final WalletRepository walletRepository;
+
+    public WalletServiceImpl(WalletRepository walletRepository) {
+        this.walletRepository = walletRepository;
+    }
 
     @Override
     public WalletEntity create(WalletRequest walletRequest) {
