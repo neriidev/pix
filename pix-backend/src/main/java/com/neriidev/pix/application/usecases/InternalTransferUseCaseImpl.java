@@ -5,6 +5,8 @@ import com.neriidev.pix.application.ports.out.*;
 import com.neriidev.pix.domain.enums.LedgerEntryType;
 import com.neriidev.pix.domain.enums.TransactionStatus;
 import com.neriidev.pix.domain.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -13,6 +15,8 @@ import java.util.UUID;
 
 @Service
 public class InternalTransferUseCaseImpl implements InternalTransferUseCase {
+
+    private static final Logger log = LoggerFactory.getLogger(InternalTransferUseCaseImpl.class);
 
     private final IdempotencyKeyRepositoryPort idempotencyKeyRepository;
     private final PixKeyRepositoryPort pixKeyRepository;
@@ -30,7 +34,9 @@ public class InternalTransferUseCaseImpl implements InternalTransferUseCase {
 
     @Override
     public Transaction internalTransfer(String idempotencyKey, String fromPixKey, String toPixKey, BigDecimal amount) {
+        log.info("Iniciando transferência interna de {} para {} no valor de {}", fromPixKey, toPixKey, amount);
         idempotencyKeyRepository.findByKeyAndScope(idempotencyKey, "internal-transfer").ifPresent(key -> {
+            log.warn("Chave de idempotência {} já utilizada", idempotencyKey);
             throw new RuntimeException("Chave de idempotência já utilizada");
         });
 
@@ -60,7 +66,7 @@ public class InternalTransferUseCaseImpl implements InternalTransferUseCase {
         ledgerRepository.save(toLedger);
 
         idempotencyKeyRepository.save(new IdempotencyKey(idempotencyKey, "internal-transfer", LocalDateTime.now(), null));
-
+        log.info("Transferência interna completada com o id da transação {}", transaction.getId());
         return transaction;
     }
 }
